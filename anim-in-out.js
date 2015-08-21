@@ -16,7 +16,11 @@
                                 observer.disconnect();
 
                                 $window.requestAnimationFrame(function() {
-                                    $timeout(done, sync ? 0 : outSpeed);
+                                    if(sync){
+                                        done();
+                                    }else {
+                                        $timeout(done, outSpeed);
+                                    }
                                 });
                             });
 
@@ -27,7 +31,11 @@
                             });
 
                         } catch (e) {
-                            $timeout(done, Math.max(100, sync ? 0 : outSpeed));
+                            if(sync){
+                                done();
+                            }else {
+                                $timeout(done, Math.max(100, outSpeed));
+                            }
                         }
 
                         angular.element(element).addClass('anim-in-setup');
